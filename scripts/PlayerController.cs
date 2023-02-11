@@ -21,17 +21,43 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float mouseSensitivity = 1.0f;
     [SerializeField] private float upLimit = -50.0f;
     [SerializeField] private float downLimit = 50.0f;
+    [Header("Shooter")]
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform bulletSpawn;
+    [SerializeField] private float bulletSpeed = 10.0f;
+    [SerializeField] private float bulletLifeTime = 2.0f;
+    [SerializeField] private float fireRate = 0.5f;
+    private float nextFire = 0.0f;
+
+    private GameManger manager;
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManger>();
+    }
+
+    private void Fire()
+    {
+        if (Input.GetButton("Fire1") && Time.time > nextFire) {
+            nextFire = Time.time + fireRate;
+            Vector3 rotation = cameraHolder.rotation.eulerAngles;
+            bulletSpawn.rotation = Quaternion.Euler(rotation);
+            GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+            Rigidbody rb = bullet.GetComponent<Rigidbody>();
+            rb.velocity = bulletSpawn.forward * bulletSpeed;
+            Destroy(bullet, bulletLifeTime);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (manager == null || manager.IsInPauseMenu())
+            return;
         Move();
         Rotate();
+        Fire();
     }
     
     private void Move() {

@@ -31,9 +31,9 @@ public class QestEditor : Editor
 
             #endregion
 
-            #region CollectVars
+            #region EnemyVars
 
-                private SerializedProperty collectables;
+                private SerializedProperty enemy;
 
             #endregion
         
@@ -63,7 +63,7 @@ public class QestEditor : Editor
         talkTo = serializedObject.FindProperty("talkTo");
         
         // collectVars
-        collectables = serializedObject.FindProperty("collectables");
+        enemy = serializedObject.FindProperty("enemy");
     }
 
     public override void OnInspectorGUI()
@@ -159,7 +159,17 @@ public class QestEditor : Editor
     }
     
     private void DisplayKillEditor() {
-        
+        var style = new GUIStyle(GUI.skin.label)
+        {
+            alignment = TextAnchor.MiddleCenter,
+            fontStyle = FontStyle.Bold,
+            fontSize = 15,
+        };
+        EditorGUILayout.LabelField("Kill", style, GUILayout.ExpandWidth(true));
+        EditorGUILayout.Space(15);
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.PropertyField(enemy);
+        EditorGUILayout.EndHorizontal();
     }
     
     private void DisplayTalkEditor() {

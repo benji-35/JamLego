@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManger : MonoBehaviour
 {
@@ -49,6 +48,8 @@ public class GameManger : MonoBehaviour
         HideInteract();
         HidePauseMenu();
         CloseDiscuss();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update()
@@ -62,10 +63,20 @@ public class GameManger : MonoBehaviour
             else
                 ShowPauseMenu();
         }
+
         if (numberOfPauseMenu > 0 && !pauseMenu.activeSelf)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             pauseMenu.SetActive(true);
+        }
         else if (numberOfPauseMenu <= 0 && pauseMenu.activeSelf)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             pauseMenu.SetActive(false);
+        }
+
         if (!pauseMenu.activeSelf && numberOfInteractables > 0 && !interactPanel.activeSelf)
             interactPanel.SetActive(true);
         else if ((pauseMenu.activeSelf && interactPanel.activeSelf) || (numberOfInteractables <= 0 && interactPanel.activeSelf))
@@ -182,5 +193,24 @@ public class GameManger : MonoBehaviour
             return;
         discussTalker.text = talker;
         discussText.text = text;
+    }
+
+    public bool IsInPauseMenu()
+    {
+        return numberOfPauseMenu > 0;
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void QuitGame()
+    {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 }
