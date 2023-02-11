@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(Discuss))]
+[CanEditMultipleObjects]
 public class DiscussEditor : Editor
 {
     #region vars
