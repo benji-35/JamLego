@@ -124,7 +124,6 @@ public class Quest : MonoBehaviour {
     }
     
     private void FinishQuest() {
-        Debug.Log("Finish Quest for " + questName + "");
         state = QuestState.Finished;
         eventsOnFinish.Invoke();
         QuestMarker.SetActive(false);
@@ -134,15 +133,12 @@ public class Quest : MonoBehaviour {
     public void StartQuest() {
         if (state != QuestState.NotStarted)
             return;
-        Debug.Log("Start Quest for " + questName + "");
         gameObject.SetActive(true);
         state = QuestState.InProgress;
         QuestMarker.SetActive(true);
         if (questType == QuestType.Talk && talkTo != null) {
             QuestMarker.transform.position = talkTo.transform.position;
-            Debug.Log("Talk to " + talkTo.name + " event will be added");
             talkTo.AddEventOnFinish(FinishQuest, this);
-            Debug.Log("Talk to " + talkTo.name + " event added");
         } else if (questType == QuestType.Move && waypoints.Count > 0) {
             QuestMarker.transform.position = waypoints[0].position.position;
             currentWaypoint = 0;

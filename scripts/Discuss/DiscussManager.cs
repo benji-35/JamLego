@@ -42,20 +42,17 @@ public class DiscussManager : Interractor
     }
     
     public void AddEventOnFinish(UnityAction action, Quest whichQuest) {
-        Debug.Log("Add event on finish discuss for object: " + gameObject.name + " for quest: " + whichQuest.name + "");
         onDiscussionFinish.AddListener(action);
     }
 
     public void CallFinishDiscuss()
     {
-        Debug.Log("Finish discuss for object: " + gameObject.name + "");
         onDiscussionFinish.Invoke();
     }
 
     private void OpenDiscuss() {
         GameManger gameManager = GetGameManager();
         if (gameManager == null) {
-            Debug.LogWarning("No game manager found");
             return;
         }
         gameManager.OpenDiscuss(firstDiscuss, this);
@@ -63,7 +60,6 @@ public class DiscussManager : Interractor
     }
     
     private void CloseDiscuss() {
-        Debug.Log("Close discuss for object: " + gameObject.name + "");
         isDiscussing = false;
         currentDiscuss = null;
         onDiscussionFinish.Invoke();
