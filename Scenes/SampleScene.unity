@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
       propertyPath: questType
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
       propertyPath: waypoints.Array.size

@@ -29,6 +29,12 @@ public class QestEditor : Editor
                 private SerializedProperty talkTo;          
 
             #endregion
+
+            #region CollectVars
+
+                private SerializedProperty collectables;
+
+            #endregion
         
         #endregion
 
@@ -41,8 +47,7 @@ public class QestEditor : Editor
         #endregion
     #endregion
 
-    private void OnEnable()
-    {
+    private void OnEnable() {
         questName = serializedObject.FindProperty("questName");
         questDescription = serializedObject.FindProperty("questDescription");
         questType = serializedObject.FindProperty("questType");
@@ -55,6 +60,9 @@ public class QestEditor : Editor
         
         // talkVars
         talkTo = serializedObject.FindProperty("talkTo");
+        
+        // collectVars
+        collectables = serializedObject.FindProperty("collectables");
     }
 
     public override void OnInspectorGUI()
@@ -79,18 +87,17 @@ public class QestEditor : Editor
             serializedObject.ApplyModifiedProperties();
         }
         EditorGUI.EndFoldoutHeaderGroup();
-        
+
         events = EditorGUILayout.BeginFoldoutHeaderGroup(events, "Events");
         if (events) {
             EditorGUILayout.PropertyField(onFinish);
             serializedObject.ApplyModifiedProperties();
         }
         EditorGUI.EndFoldoutHeaderGroup();
-        
+
         EditorGUILayout.Space(5);
         showEdit = EditorGUILayout.BeginFoldoutHeaderGroup(showEdit, "Edit Quest");
-        if (showEdit)
-        {
+        if (showEdit) {
             switch (quest.GetQuestType())
             {
                 case QuestType.Collect:
@@ -119,7 +126,28 @@ public class QestEditor : Editor
     }
     
     private void DisplayCollectEditor() {
-        
+        Quest quest = (Quest)target;
+        List<CollectableObject> collectablesList = quest.GetCollectables();
+        for (int i = 0; i < collectablesList.Count; i++)
+        {
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Collectable " + (i + 1), GUILayout.Width(100));
+            collectablesList[i] = (CollectableObject)EditorGUILayout.ObjectField(collectablesList[i], typeof(CollectableObject), true);
+            if (GUILayout.Button("X", GUILayout.Width(20)))
+            {
+                collectablesList.RemoveAt(i);
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Add Collectable", GUILayout.Width(100));
+        CollectableObject collectable = (CollectableObject)EditorGUILayout.ObjectField(null, typeof(CollectableObject), true);
+        if (GUILayout.Button("+", GUILayout.Width(20)))
+        {
+            collectablesList.Add(collectable);
+        }
+        EditorGUILayout.EndHorizontal();
+        serializedObject.ApplyModifiedProperties();
     }
     
     private void DisplayKillEditor() {
@@ -145,8 +173,7 @@ public class QestEditor : Editor
         
     }
     
-    private void DisplayMoveEditor(Quest quest)
-    {
+    private void DisplayMoveEditor(Quest quest) {
         var style = new GUIStyle(GUI.skin.label)
         {
             alignment = TextAnchor.MiddleCenter,

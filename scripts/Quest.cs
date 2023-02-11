@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -30,6 +31,11 @@ public class Quest : MonoBehaviour {
     
     [Header("Collect Quest")]
     [SerializeField] private List<CollectableObject> collectables;
+    
+    [Header("Kill Quest")]
+    [SerializeField] private PnjLife enemy;
+
+    private int nbCollected = 0;
 
     private void Start()
     {
@@ -44,8 +50,7 @@ public class Quest : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         if (state != QuestState.InProgress)
             return;
         if (player != null) {
@@ -58,8 +63,15 @@ public class Quest : MonoBehaviour {
             }
         }
         checkWaypoint();
+        checkCollectables();
     }
 
+    private void checkCollectables()
+    {
+        if (nbCollected >= collectables.Count)
+            FinishQuest();
+    }
+    
     private void checkWaypoint() {
         if (questType != QuestType.Move)
             return;
@@ -132,6 +144,23 @@ public class Quest : MonoBehaviour {
             QuestMarker.transform.position = waypoints[0].position.position;
             currentWaypoint = 0;
         }
+        
+        if (questType == QuestType.Collect && collectables.Count > 0)
+        {
+            for (int i = 0; i < collectables.Count; i++)
+            {
+                var col = collectables[i];
+                col.AddEventOnCollect(setCollectableCollected);
+            }
+        }
+        if (questType == QuestType.Kill && enemy != null) {
+            enemy.AddEventOnDeath(FinishQuest);
+        }
+    }
+    
+    public void setCollectableCollected()
+    {
+        nbCollected++;
     }
     
     public QuestState GetState()
@@ -181,6 +210,24 @@ public class Quest : MonoBehaviour {
     public void SetRadiusWaypoint(int index, float radius)
     {
         waypoints[index].radius = radius;
+    }
+    
+    public List<CollectableObject> GetCollectables() {
+        if (questType == QuestType.Collect)
+            return collectables;
+        return new List<CollectableObject>();
+    }
+    
+    public void RemoveCollectable(int index) {
+        collectables.RemoveAt(index);
+    }
+    
+    public void AddCollectable(CollectableObject collectable) {
+        collectables.Add(collectable);
+    }
+    
+    public void SetCollectable(int index, CollectableObject collectable) {
+        collectables[index] = collectable;
     }
 }
 
