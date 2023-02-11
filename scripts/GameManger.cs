@@ -159,6 +159,13 @@ public class GameManger : MonoBehaviour
     }
 
     private void NextDiscuss() {
+        if (currentDiscuss == null)
+        {
+            if (onDiscussionFinish != null)
+                onDiscussionFinish.Invoke();
+            CloseDiscuss();
+            return;
+        }
         currentDiscuss = currentDiscuss.GetNextDiscussion();
         if (currentDiscuss == null) {
             if (onDiscussionFinish != null)
