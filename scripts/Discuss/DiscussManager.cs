@@ -32,4 +32,8 @@ public class DiscussManager : Interractor
 
         gameManager.OpenDiscuss(firstDiscuss, onDiscussionFinish);
     }
+    
+    public void AddEventOnFinish(UnityAction action) {
+        onDiscussionFinish.AddListener(action);
+    }
 }
