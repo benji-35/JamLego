@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameManger : MonoBehaviour
 {
+    [SerializeField] UnityEvent onQuestFinished;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject interactPanel;
     [SerializeField] private GameObject pauseMenu;
@@ -20,6 +22,7 @@ public class GameManger : MonoBehaviour
     private int numberOfInteractables = 0;
     private int numberOfPauseMenu = 0;
     private bool isDiscussing = false;
+    private bool isFinished = false;
 
     private DiscussManager discussManager = null;
     // Start is called before the first frame update
@@ -52,10 +55,15 @@ public class GameManger : MonoBehaviour
         Cursor.visible = false;
     }
 
-    private void Update()
-    {
+    private void Update() {
         if (!gameIsReady)
             return;
+        if (GetNbQuestsDone() >= quests.Count) {
+            if (!isFinished) {
+                onQuestFinished.Invoke();
+                isFinished = true;
+            }
+        }        
         questText.text = "Quests: " + GetNbQuestsDone() + " / " + quests.Count + "";
         if (Input.GetKeyDown(KeyCode.Escape)) {
             if (pauseMenu.activeSelf)
