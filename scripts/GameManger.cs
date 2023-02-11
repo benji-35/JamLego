@@ -27,7 +27,14 @@ public class GameManger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("Quest");
+        GameObject[] _objs = Resources.FindObjectsOfTypeAll<GameObject>();
+        List<GameObject> objs = new List<GameObject>();
+        for (int i = 0; i < _objs.Length; i++)
+        {
+            if (_objs[i].tag == "Quest")
+                objs.Add(_objs[i]);
+        }
+        
         quests.Clear();
         foreach (var obj in objs)
         {

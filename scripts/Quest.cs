@@ -37,7 +37,7 @@ public class Quest : MonoBehaviour {
 
     private int nbCollected = 0;
 
-    private void Start()
+    private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("MainCamera");
         QuestMarker.SetActive(false);
@@ -47,6 +47,7 @@ public class Quest : MonoBehaviour {
         if (state == QuestState.Finished)
             return;
         QuestMarker.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
