@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class Interractor : MonoBehaviour
 {
-    [SerializeField] private UnityEvent events;
+    [SerializeField] private UnityEvent onInteract;
     [SerializeField] private bool isInteracting = false;
     private bool intercated = false;
 
@@ -19,13 +19,13 @@ public class Interractor : MonoBehaviour
             GameManger manager = GetGameManager();
             if (manager != null)
                 manager.HideInteract();
-            events.Invoke();
+            onInteract.Invoke();
             Debug.Log("calling Interact");
-            onInteract();
+            OnInteract();
         }
     }
 
-    protected virtual void onInteract() { }
+    protected virtual void OnInteract() { }
 
     private void OnTriggerEnter(Collider other)
     {

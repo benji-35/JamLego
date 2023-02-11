@@ -133,8 +133,7 @@ public class Quest : MonoBehaviour {
             return;
         state = QuestState.InProgress;
         QuestMarker.SetActive(true);
-        if (questType == QuestType.Talk && talkTo != null)
-        {
+        if (questType == QuestType.Talk && talkTo != null) {
             QuestMarker.transform.position = talkTo.transform.position;
             talkTo.AddEventOnFinish(FinishQuest);
         }
