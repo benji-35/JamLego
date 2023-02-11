@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 5573706283703010196}
   m_Layer: 0
   m_Name: QuestExample
-  m_TagString: Untagged
+  m_TagString: Quest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -181,6 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 588180f89e9ad8a45b08e55025bba5e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questName: 
+  questDescription: 
   eventsOnFinish:
     m_PersistentCalls:
       m_Calls: []

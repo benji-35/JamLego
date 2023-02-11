@@ -5,6 +5,10 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class Quest : MonoBehaviour {
+    [Header("GENERAL")]
+    [SerializeField] private string questName;
+    [SerializeField] private string questDescription;
+    [Header("Others")]
     [SerializeField] private UnityEvent eventsOnFinish;
 
     [SerializeField] private GameObject QuestMarker;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,7 +11,7 @@ public class GameManger : MonoBehaviour
     [SerializeField] private GameObject interactPanel;
     [SerializeField] private GameObject pauseMenu;
     [Header("Quests")]
-    [SerializeField] private Quest[] quests;
+    [SerializeField] private List<Quest> quests;
     [SerializeField] private TMPro.TextMeshProUGUI questText;
     [Header("Discussion")]
     [SerializeField] private GameObject discussPanel;
@@ -26,6 +27,14 @@ public class GameManger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Quest");
+        foreach (var obj in objs)
+        {
+            Quest quest = obj.GetComponent<Quest>();
+            if (quest != null) {
+                quests.Add(quest);
+            }
+        }
         if (player.GetComponent<PlayerController>() != null && interactPanel != null && pauseMenu != null && discussPanel != null)
             gameIsReady = true;
         HideInteract();
@@ -37,7 +46,7 @@ public class GameManger : MonoBehaviour
     {
         if (!gameIsReady)
             return;
-        questText.text = "Quests: " + GetNbQuestsDone() + " / " + quests.Length + "";
+        questText.text = "Quests: " + GetNbQuestsDone() + " / " + quests.Count + "";
         if (Input.GetKeyDown(KeyCode.Escape)) {
             if (pauseMenu.activeSelf)
                 HidePauseMenu();
