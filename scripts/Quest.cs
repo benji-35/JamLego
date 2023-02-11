@@ -17,6 +17,7 @@ public class Quest : MonoBehaviour {
     [SerializeField] private QuestObject[] questObjects;
     private QuestState state = QuestState.NotStarted;
     private GameObject player;
+    private GameObject camPlayer;
     [SerializeField] private TMPro.TextMeshProUGUI distanceText;
     [SerializeField] private GameObject refDistance;
 
@@ -24,7 +25,7 @@ public class Quest : MonoBehaviour {
     [SerializeField] private List<QuestWaypoint> waypoints;
     [SerializeField] private bool displayOnEditor = true;
     [SerializeField] private Color gizmosColor = Color.yellow;
-    private int currentWaypoint;
+    private int currentWaypoint = 0;
     
     [Header("Talk Quest")]
     [SerializeField] private DiscussManager talkTo = null;
@@ -39,7 +40,8 @@ public class Quest : MonoBehaviour {
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("MainCamera");
+        camPlayer = GameObject.FindGameObjectWithTag("MainCamera");
+        player = GameObject.FindGameObjectWithTag("Player");
         QuestMarker.SetActive(false);
         if (refDistance != null) {
             refDistance.SetActive(false);
@@ -52,12 +54,12 @@ public class Quest : MonoBehaviour {
     void Update() {
         if (state != QuestState.InProgress)
             return;
-        if (player != null) {
-            QuestMarker.transform.LookAt(2 * QuestMarker.transform.position - player.transform.position);
+        if (camPlayer != null) {
+            QuestMarker.transform.LookAt(2 * QuestMarker.transform.position - camPlayer.transform.position);
             if (refDistance == null) {
                 distanceText.text = "Distance: N/A";
             } else {
-                float distance = Vector3.Distance(player.transform.position, refDistance.transform.position);
+                float distance = Vector3.Distance(camPlayer.transform.position, refDistance.transform.position);
                 distanceText.text = "Distance: " + distance.ToString("0.00") + "cm";
             }
         }
@@ -140,8 +142,10 @@ public class Quest : MonoBehaviour {
         } else if (questType == QuestType.Move && waypoints.Count > 0) {
             QuestMarker.transform.position = waypoints[0].position.position;
             currentWaypoint = 0;
-        } else if (questType == QuestType.Collect && collectables.Count > 0) {
+        } else if (questType == QuestType.Collect) {
+            Debug.Log("collect quest : number of collectables = " + collectables.Count);
             for (int i = 0; i < collectables.Count; i++) {
+                Debug.Log("add event for collectable");
                 var col = collectables[i];
                 col.AddEventOnCollect(setCollectableCollected);
             }
@@ -218,8 +222,13 @@ public class Quest : MonoBehaviour {
         collectables.Add(collectable);
     }
     
-    public void SetCollectable(int index, CollectableObject collectable) {
+    public void SetCollectable(int index, CollectableObject collectable)
+    {
         collectables[index] = collectable;
+    }
+
+    public void SetListCollectable(List<CollectableObject> objs) {
+        collectables = objs;
     }
 }
 

@@ -70,6 +70,11 @@ public class QestEditor : Editor
     {
         serializedObject.Update();
         Quest quest = (Quest)target;
+        if (quest.GetQuestType() == QuestType.Collect || quest.GetQuestType() == QuestType.Move)
+        {
+            DrawDefaultInspector();
+            return;
+        }
         EditorGUILayout.BeginHorizontal();
         var style = new GUIStyle(GUI.skin.label)
         {
@@ -102,7 +107,6 @@ public class QestEditor : Editor
             switch (quest.GetQuestType())
             {
                 case QuestType.Collect:
-                    DisplayCollectEditor();
                     break;
                 case QuestType.Destruct:
                     DisplayDestructEditor();
@@ -111,7 +115,6 @@ public class QestEditor : Editor
                     DisplayKillEditor();
                     break;
                 case QuestType.Move:
-                    DisplayMoveEditor(quest);
                     break;
                 case QuestType.Talk:
                     DisplayTalkEditor();
@@ -126,29 +129,33 @@ public class QestEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
     
-    private void DisplayCollectEditor() {
-        Quest quest = (Quest)target;
-        List<CollectableObject> collectablesList = quest.GetCollectables();
-        for (int i = 0; i < collectablesList.Count; i++)
+    private void DisplayCollectEditor(Quest quest)
+    {
+        List<CollectableObject> collectables = quest.GetCollectables();
+        var style = new GUIStyle(GUI.skin.label)
+        {
+            alignment = TextAnchor.MiddleCenter,
+            fontStyle = FontStyle.Bold,
+            fontSize = 15,
+        };
+        EditorGUILayout.LabelField("cCollect (" + collectables.Count + ")", style, GUILayout.ExpandWidth(true));
+        EditorGUILayout.Space(15);
+        for (int i = 0; i < collectables.Count; i++)
         {
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Collectable " + (i + 1), GUILayout.Width(100));
-            collectablesList[i] = (CollectableObject)EditorGUILayout.ObjectField(collectablesList[i], typeof(CollectableObject), true);
-            if (GUILayout.Button("X", GUILayout.Width(20)))
+            CollectableObject col = (CollectableObject)EditorGUILayout.ObjectField(collectables[i], typeof(CollectableObject), true);
+            quest.SetCollectable(i, col);
+            if (GUILayout.Button("X"))
             {
-                collectablesList.RemoveAt(i);
+                quest.RemoveCollectable(i);
             }
             EditorGUILayout.EndHorizontal();
         }
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Add Collectable", GUILayout.Width(100));
-        CollectableObject collectable = (CollectableObject)EditorGUILayout.ObjectField(null, typeof(CollectableObject), true);
-        if (GUILayout.Button("+", GUILayout.Width(20)))
+        if (GUILayout.Button("Add Collectable"))
         {
-            collectablesList.Add(collectable);
+            quest.AddCollectable(null);
         }
-        EditorGUILayout.EndHorizontal();
-        serializedObject.ApplyModifiedProperties();
     }
     
     private void DisplayKillEditor() {
@@ -181,7 +188,7 @@ public class QestEditor : Editor
             fontStyle = FontStyle.Bold,
             fontSize = 15,
         };
-        EditorGUILayout.LabelField("Moving", style, GUILayout.ExpandWidth(true));
+        EditorGUILayout.LabelField("Moving (" + quest.GetWaypoints().Count + ")", style, GUILayout.ExpandWidth(true));
         EditorGUILayout.Space(15);
         List<QuestWaypoint> waypointsList = quest.GetWaypoints();
         //display waypoints
@@ -209,8 +216,6 @@ public class QestEditor : Editor
         {
             waypointsList.Add(new QuestWaypoint());
         }
-
-        serializedObject.ApplyModifiedProperties();
     }
     
     private void DisplayOtherEditor() {
