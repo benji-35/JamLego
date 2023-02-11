@@ -104,6 +104,7 @@ public class Quest : MonoBehaviour {
         QuestMarker.SetActive(true);
         if (questType == QuestType.Talk && talkTo != null)
         {
+            QuestMarker.transform.position = talkTo.transform.position;
             talkTo.AddEventOnFinish(FinishQuest);
         }
     }
