@@ -33,6 +33,7 @@ public class PnjLife : MonoBehaviour
     {
         if (other.tag == "Bullet") {
             life -= 10;
+            Destroy(other.gameObject);
             if (fgLifeBar != null)
                 fgLifeBar.fillAmount = Mathf.Clamp01((float)life / maxLife);
             if (life <= 0) {

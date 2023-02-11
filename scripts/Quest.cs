@@ -150,6 +150,7 @@ public class Quest : MonoBehaviour {
                 col.AddEventOnCollect(setCollectableCollected);
             }
         } else if (questType == QuestType.Kill && enemy != null) {
+            QuestMarker.transform.position = enemy.transform.position;
             enemy.AddEventOnDeath(FinishQuest);
         }
     }
