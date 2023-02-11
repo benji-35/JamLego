@@ -132,6 +132,7 @@ public class Quest : MonoBehaviour {
     public void StartQuest() {
         if (state != QuestState.NotStarted)
             return;
+        Debug.Log("Start Quest for " + questName + "");
         gameObject.SetActive(true);
         state = QuestState.InProgress;
         QuestMarker.SetActive(true);
