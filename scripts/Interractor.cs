@@ -14,13 +14,11 @@ public class Interractor : MonoBehaviour
     {
         if (isInteracting && Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("Interacting");
             intercated = true;
             GameManger manager = GetGameManager();
             if (manager != null)
                 manager.HideInteract();
             onInteract.Invoke();
-            Debug.Log("calling Interact");
             OnInteract();
         }
     }

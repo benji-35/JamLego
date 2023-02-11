@@ -96,7 +96,6 @@ public class GameManger : MonoBehaviour
     {
         if (!gameIsReady)
         {
-            Debug.LogError("Game is not ready");
             return;
         }
         player.GetComponent<PlayerController>().enabled = false;
