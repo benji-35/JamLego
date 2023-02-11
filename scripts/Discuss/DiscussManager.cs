@@ -17,7 +17,6 @@ public class DiscussManager : Interractor
     }
 
     protected override void OnInteract() {
-        Debug.Log("Interact");
         StartDiscuss();
     }
     
