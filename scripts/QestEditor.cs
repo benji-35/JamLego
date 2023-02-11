@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(Quest))]
+[CanEditMultipleObjects]
 public class QestEditor : Editor
 {
     #region vars

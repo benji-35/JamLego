@@ -46,8 +46,6 @@ public class Quest : MonoBehaviour {
         }
         if (state == QuestState.Finished)
             return;
-        QuestMarker.SetActive(false);
-        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -137,23 +135,15 @@ public class Quest : MonoBehaviour {
         if (questType == QuestType.Talk && talkTo != null) {
             QuestMarker.transform.position = talkTo.transform.position;
             talkTo.AddEventOnFinish(FinishQuest, this);
-        }
-
-        if (questType == QuestType.Move && waypoints.Count > 0)
-        {
+        } else if (questType == QuestType.Move && waypoints.Count > 0) {
             QuestMarker.transform.position = waypoints[0].position.position;
             currentWaypoint = 0;
-        }
-        
-        if (questType == QuestType.Collect && collectables.Count > 0)
-        {
-            for (int i = 0; i < collectables.Count; i++)
-            {
+        } else if (questType == QuestType.Collect && collectables.Count > 0) {
+            for (int i = 0; i < collectables.Count; i++) {
                 var col = collectables[i];
                 col.AddEventOnCollect(setCollectableCollected);
             }
-        }
-        if (questType == QuestType.Kill && enemy != null) {
+        } else if (questType == QuestType.Kill && enemy != null) {
             enemy.AddEventOnDeath(FinishQuest);
         }
     }
