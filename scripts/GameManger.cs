@@ -25,15 +25,17 @@ public class GameManger : MonoBehaviour
 
     private DiscussManager discussManager = null;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        GameObject[] _objs = Resources.FindObjectsOfTypeAll<GameObject>();
+        /*GameObject[] _objs = Resources.FindObjectsOfTypeAll<GameObject>();
         List<GameObject> objs = new List<GameObject>();
         for (int i = 0; i < _objs.Length; i++)
         {
             if (_objs[i].tag == "Quest")
                 objs.Add(_objs[i]);
-        }
+        }*/
+        
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Quest");
         
         quests.Clear();
         foreach (var obj in objs)

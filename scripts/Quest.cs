@@ -37,7 +37,7 @@ public class Quest : MonoBehaviour {
 
     private int nbCollected = 0;
 
-    private void Awake()
+    private void Start()
     {
         player = GameObject.FindGameObjectWithTag("MainCamera");
         QuestMarker.SetActive(false);
@@ -46,6 +46,7 @@ public class Quest : MonoBehaviour {
         }
         if (state == QuestState.Finished)
             return;
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -125,11 +126,13 @@ public class Quest : MonoBehaviour {
         state = QuestState.Finished;
         eventsOnFinish.Invoke();
         QuestMarker.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void StartQuest() {
         if (state != QuestState.NotStarted)
             return;
+        gameObject.SetActive(true);
         state = QuestState.InProgress;
         QuestMarker.SetActive(true);
         if (questType == QuestType.Talk && talkTo != null) {
