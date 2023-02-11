@@ -30,10 +30,15 @@ public class DiscussManager : Interractor
             return;
         }
 
-        gameManager.OpenDiscuss(firstDiscuss, onDiscussionFinish);
+        gameManager.OpenDiscuss(firstDiscuss, this);
     }
     
     public void AddEventOnFinish(UnityAction action) {
         onDiscussionFinish.AddListener(action);
+    }
+
+    public void CallFinishDiscuss()
+    {
+        onDiscussionFinish.Invoke();
     }
 }

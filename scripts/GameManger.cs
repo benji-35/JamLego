@@ -23,7 +23,7 @@ public class GameManger : MonoBehaviour
     private int numberOfDiscuss = 0;
     private Discuss currentDiscuss = null;
 
-    private UnityEvent onDiscussionFinish = null;
+    private DiscussManager discussManager = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -152,10 +152,10 @@ public class GameManger : MonoBehaviour
             numberOfPauseMenu = 0;
     }
     
-    public void OpenDiscuss(Discuss discuss, UnityEvent onFinish) {
+    public void OpenDiscuss(Discuss discuss, DiscussManager onFinish) {
         numberOfDiscuss++;
         currentDiscuss = discuss;
-        onDiscussionFinish = onFinish;
+        discussManager = onFinish;
         SetInteractText(currentDiscuss.GetTalker(), currentDiscuss.GetText());
         DisablePlayerController();
     }
@@ -171,15 +171,22 @@ public class GameManger : MonoBehaviour
     private void NextDiscuss() {
         if (currentDiscuss == null)
         {
-            if (onDiscussionFinish != null)
-                onDiscussionFinish.Invoke();
+            if (discussManager != null)
+            {
+                discussManager.CallFinishDiscuss();
+                discussManager = null;
+            }
+
             CloseDiscuss();
             return;
         }
         currentDiscuss = currentDiscuss.GetNextDiscussion();
         if (currentDiscuss == null) {
-            if (onDiscussionFinish != null)
-                onDiscussionFinish.Invoke();
+            if (discussManager != null) {
+                discussManager.CallFinishDiscuss();
+                discussManager = null;
+            }
+
             CloseDiscuss();
         } else {
             SetInteractText(currentDiscuss.GetTalker(), currentDiscuss.GetText());
