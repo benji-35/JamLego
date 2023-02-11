@@ -46,7 +46,6 @@ public class Quest : MonoBehaviour {
         }
         if (state == QuestState.Finished)
             return;
-        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -127,7 +126,6 @@ public class Quest : MonoBehaviour {
         state = QuestState.Finished;
         eventsOnFinish.Invoke();
         QuestMarker.SetActive(false);
-        gameObject.SetActive(false);
     }
 
     public void StartQuest() {
