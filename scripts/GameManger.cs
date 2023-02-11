@@ -20,8 +20,7 @@ public class GameManger : MonoBehaviour
     private bool gameIsReady = false;
     private int numberOfInteractables = 0;
     private int numberOfPauseMenu = 0;
-    private int numberOfDiscuss = 0;
-    private Discuss currentDiscuss = null;
+    private bool isDiscussing = false;
 
     private DiscussManager discussManager = null;
     // Start is called before the first frame update
@@ -71,15 +70,15 @@ public class GameManger : MonoBehaviour
             interactPanel.SetActive(true);
         else if ((pauseMenu.activeSelf && interactPanel.activeSelf) || (numberOfInteractables <= 0 && interactPanel.activeSelf))
             interactPanel.SetActive(false);
-        if (!pauseMenu.activeSelf && numberOfDiscuss > 0 && !discussPanel.activeSelf) {
+        if (!pauseMenu.activeSelf && isDiscussing && !discussPanel.activeSelf) {
             discussPanel.SetActive(true);
-        } else if ((pauseMenu.activeSelf && discussPanel.activeSelf) || (numberOfDiscuss <= 0 && discussPanel.activeSelf)) {
+        } else if ((pauseMenu.activeSelf && discussPanel.activeSelf) || (!isDiscussing && discussPanel.activeSelf)) {
             discussPanel.SetActive(false);
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (numberOfDiscuss > 0) {
+            if (isDiscussing) {
                 NextDiscuss();
             }
         }
@@ -161,44 +160,21 @@ public class GameManger : MonoBehaviour
     }
     
     public void OpenDiscuss(Discuss discuss, DiscussManager onFinish) {
-        numberOfDiscuss++;
-        currentDiscuss = discuss;
         discussManager = onFinish;
-        SetInteractText(currentDiscuss.GetTalker(), currentDiscuss.GetText());
-        DisablePlayerController();
+        isDiscussing = true;
     }
     
-    public void CloseDiscuss() {
-        numberOfDiscuss--;
-        if (numberOfDiscuss < 0)
-            numberOfDiscuss = 0;
-        if (numberOfDiscuss == 0)
-            EnablePlayerController();
+    public void CloseDiscuss()
+    {
+        discussManager = null;
+        isDiscussing = false;
     }
 
-    private void NextDiscuss() {
-        if (currentDiscuss == null)
-        {
-            if (discussManager != null)
-            {
-                discussManager.CallFinishDiscuss();
-                discussManager = null;
-            }
-
-            CloseDiscuss();
+    private void NextDiscuss()
+    {
+        if (discussManager == null)
             return;
-        }
-        currentDiscuss = currentDiscuss.GetNextDiscussion();
-        if (currentDiscuss == null) {
-            if (discussManager != null) {
-                discussManager.CallFinishDiscuss();
-                discussManager = null;
-            }
-
-            CloseDiscuss();
-        } else {
-            SetInteractText(currentDiscuss.GetTalker(), currentDiscuss.GetText());
-        }
+        discussManager.NextDiscuss();
     }
     
     public void SetInteractText(string talker, string text) {
