@@ -33,10 +33,10 @@ RectTransform:
   m_Father: {fileID: 1501034072426347141}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -78.11279}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: -901, y: -464}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6429001426110556524
 CanvasRenderer:
@@ -183,6 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questName: 
   questDescription: 
+  questType: 0
   eventsOnFinish:
     m_PersistentCalls:
       m_Calls: []
@@ -190,6 +191,12 @@ MonoBehaviour:
   questObjects: []
   distanceText: {fileID: 7004775833118905927}
   refDistance: {fileID: 8706212013498156821}
+  waypoints: []
+  displayOnEditor: 1
+  gizmosColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  talkTo: {fileID: 0}
+  collectables: []
+  enemy: {fileID: 0}
 --- !u!1 &6851244059483399473
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,10 +230,10 @@ RectTransform:
   m_Father: {fileID: 1501034072426347141}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: -1001, y: -414}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4527137646263230386
 CanvasRenderer:

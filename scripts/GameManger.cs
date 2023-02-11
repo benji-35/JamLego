@@ -14,6 +14,9 @@ public class GameManger : MonoBehaviour
     [Header("Quests")]
     [SerializeField] private List<Quest> quests;
     [SerializeField] private TMPro.TextMeshProUGUI questText;
+    [SerializeField] private GameObject questPanelInfo;
+    [SerializeField] private TMPro.TextMeshProUGUI questDescription;
+    [SerializeField] private TMPro.TextMeshProUGUI questName;
     [Header("Discussion")]
     [SerializeField] private GameObject discussPanel;
     [SerializeField] private TMPro.TextMeshProUGUI discussTalker;
@@ -23,11 +26,11 @@ public class GameManger : MonoBehaviour
     private int numberOfPauseMenu = 0;
     private bool isDiscussing = false;
     private bool isFinished = false;
+    private int nbInfoQuests = 0;
 
     private DiscussManager discussManager = null;
     // Start is called before the first frame update
-    void Awake()
-    {
+    void Awake() {
         /*GameObject[] _objs = Resources.FindObjectsOfTypeAll<GameObject>();
         List<GameObject> objs = new List<GameObject>();
         for (int i = 0; i < _objs.Length; i++)
@@ -51,6 +54,7 @@ public class GameManger : MonoBehaviour
         HideInteract();
         HidePauseMenu();
         CloseDiscuss();
+        HideQuestInfo();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -220,5 +224,53 @@ public class GameManger : MonoBehaviour
         #else
             Application.Quit();
         #endif
+    }
+    
+    public void SetQuestInfo(string name, string description, QuestType questType)
+    {
+        nbInfoQuests++;
+        questName.text = name;
+        questDescription.text = description;
+        questPanelInfo.SetActive(true);
+        UnityEngine.UI.Image img = questPanelInfo.GetComponent<UnityEngine.UI.Image>();
+        if (img != null)
+        {
+            Color col = Color.blue;
+            switch (questType)
+            {
+                case QuestType.Kill:
+                    col = Color.red;
+                    break;
+                case QuestType.Destruct:
+                    col = Color.red;
+                    break;
+                case QuestType.Talk:
+                    col = Color.blue;
+                    break;
+                case QuestType.Collect:
+                    col = Color.green;
+                    break;
+                case QuestType.Move:
+                    col = Color.yellow;
+                    break;
+                default:
+                    col = Color.blue;
+                    break;
+            }
+
+            img.color = col;
+        }
+    }
+
+    public void HideQuestInfo()
+    {
+        nbInfoQuests--;
+        if (nbInfoQuests <= 0)
+        {
+            questName.text = "";
+            questDescription.text = "";
+            questPanelInfo.SetActive(false);
+            nbInfoQuests = 0;
+        }
     }
 }

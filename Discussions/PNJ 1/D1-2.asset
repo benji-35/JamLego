@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28faed8cf3856b643a279416e7d7d6f8, type: 3}
-  m_Name: NewDiscuss
+  m_Name: D1-2
   m_EditorClassIdentifier: 
-  nextDiscussion: {fileID: 11400000, guid: 3657936e8b1351242bdc1282f9356d2c, type: 2}
-  talker: Player
-  text: "Mon pr\xE9nom c JASON ta capt\xE9 !"
+  nextDiscussion: {fileID: 0}
+  talker: Jean-Heude
+  text: Un homme vient de se faire agresser, allez le voir !

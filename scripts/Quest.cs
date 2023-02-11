@@ -126,6 +126,8 @@ public class Quest : MonoBehaviour {
     
     private void FinishQuest() {
         state = QuestState.Finished;
+        GameManger manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManger>();
+        manager.HideQuestInfo();
         eventsOnFinish.Invoke();
         QuestMarker.SetActive(false);
     }
@@ -153,6 +155,9 @@ public class Quest : MonoBehaviour {
             QuestMarker.transform.position = enemy.transform.position;
             enemy.AddEventOnDeath(FinishQuest);
         }
+
+        GameManger manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManger>();
+        manager.SetQuestInfo(questName, questDescription, questType);
     }
     
     public void setCollectableCollected()
