@@ -39,6 +39,7 @@ public class DiscussManager : Interractor
 
     public void CallFinishDiscuss()
     {
+        Debug.Log("Finish discuss for object: " + gameObject.name + "");
         onDiscussionFinish.Invoke();
     }
 }
