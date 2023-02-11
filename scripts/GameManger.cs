@@ -228,6 +228,11 @@ public class GameManger : MonoBehaviour
     
     public void SetQuestInfo(string name, string description, QuestType questType)
     {
+        if (nbInfoQuests >= 1) {
+            Debug.LogError("You can't have more than 1 quest info at the same time");
+            nbInfoQuests = 1;
+            return;
+        }
         nbInfoQuests++;
         questName.text = name;
         questDescription.text = description;
