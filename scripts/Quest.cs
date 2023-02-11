@@ -23,6 +23,9 @@ public class Quest : MonoBehaviour {
     [SerializeField] private List<QuestWaypoint> waypoints;
     [SerializeField] private bool displayOnEditor = true;
     [SerializeField] private Color gizmosColor = Color.yellow;
+    private int currentWaypoint;
+    
+    [Header("Talk Quest")]
     [SerializeField] private DiscussManager talkTo = null;
 
     private void Start()
@@ -51,8 +54,22 @@ public class Quest : MonoBehaviour {
                 distanceText.text = "Distance: " + distance.ToString("0.00") + "cm";
             }
         }
-        checkAllDone();
-        if (allDone())
+        checkWaypoint();
+    }
+
+    private void checkWaypoint() {
+        if (questType != QuestType.Move)
+            return;
+        QuestWaypoint _waypoint = waypoints[currentWaypoint];
+        Vector3 target = _waypoint.position.position;
+        //check if player is in radius of target
+        if (Vector3.Distance(target, player.transform.position) <= _waypoint.radius)
+        {
+            currentWaypoint++;
+            if (currentWaypoint < waypoints.Count)
+                QuestMarker.transform.position = waypoints[currentWaypoint].position.position;
+        }
+        if (currentWaypoint >= waypoints.Count)
             FinishQuest();
     }
 
@@ -106,6 +123,12 @@ public class Quest : MonoBehaviour {
         {
             QuestMarker.transform.position = talkTo.transform.position;
             talkTo.AddEventOnFinish(FinishQuest);
+        }
+
+        if (questType == QuestType.Move && waypoints.Count > 0)
+        {
+            QuestMarker.transform.position = waypoints[0].position.position;
+            currentWaypoint = 0;
         }
     }
     
