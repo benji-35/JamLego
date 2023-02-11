@@ -33,7 +33,8 @@ public class DiscussManager : Interractor
         gameManager.OpenDiscuss(firstDiscuss, this);
     }
     
-    public void AddEventOnFinish(UnityAction action) {
+    public void AddEventOnFinish(UnityAction action, Quest whichQuest) {
+        Debug.Log("Add event on finish discuss for object: " + gameObject.name + " for quest: " + whichQuest.name + "");
         onDiscussionFinish.AddListener(action);
     }
 
