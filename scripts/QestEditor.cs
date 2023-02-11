@@ -14,6 +14,7 @@ public class QestEditor : Editor
             private SerializedProperty questName;
             private SerializedProperty questDescription;
             private SerializedProperty questType;
+            private SerializedProperty onFinish;
 
             #region moveVars
 
@@ -35,6 +36,7 @@ public class QestEditor : Editor
         
             bool showGeneral = false;
             bool showEdit = false;
+            bool events = false;
             
         #endregion
     #endregion
@@ -44,6 +46,7 @@ public class QestEditor : Editor
         questName = serializedObject.FindProperty("questName");
         questDescription = serializedObject.FindProperty("questDescription");
         questType = serializedObject.FindProperty("questType");
+        onFinish = serializedObject.FindProperty("eventsOnFinish");
         
         // moveVars
         waypoints = serializedObject.FindProperty("waypoints");
@@ -76,6 +79,14 @@ public class QestEditor : Editor
             serializedObject.ApplyModifiedProperties();
         }
         EditorGUI.EndFoldoutHeaderGroup();
+        
+        events = EditorGUILayout.BeginFoldoutHeaderGroup(events, "Events");
+        if (events) {
+            EditorGUILayout.PropertyField(onFinish);
+            serializedObject.ApplyModifiedProperties();
+        }
+        EditorGUI.EndFoldoutHeaderGroup();
+        
         EditorGUILayout.Space(5);
         showEdit = EditorGUILayout.BeginFoldoutHeaderGroup(showEdit, "Edit Quest");
         if (showEdit)

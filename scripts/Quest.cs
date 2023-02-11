@@ -27,6 +27,9 @@ public class Quest : MonoBehaviour {
     
     [Header("Talk Quest")]
     [SerializeField] private DiscussManager talkTo = null;
+    
+    [Header("Collect Quest")]
+    [SerializeField] private List<CollectableObject> collectables;
 
     private void Start()
     {
@@ -113,8 +116,7 @@ public class Quest : MonoBehaviour {
         QuestMarker.SetActive(false);
     }
 
-    public void StartQuest()
-    {
+    public void StartQuest() {
         if (state != QuestState.NotStarted)
             return;
         state = QuestState.InProgress;
