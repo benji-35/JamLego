@@ -28,6 +28,7 @@ public class GameManger : MonoBehaviour
     void Start()
     {
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Quest");
+        quests.Clear();
         foreach (var obj in objs)
         {
             Quest quest = obj.GetComponent<Quest>();
