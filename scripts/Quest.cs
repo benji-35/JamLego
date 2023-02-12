@@ -42,6 +42,7 @@ public class Quest : MonoBehaviour {
     
     [Header("Interact Quest")]
     [SerializeField] private Interractor interactable;
+    [SerializeField] private bool stateButton = true;
 
     private int nbCollected = 0;
 
@@ -91,6 +92,7 @@ public class Quest : MonoBehaviour {
         }
         checkWaypoint();
         checkCollectables();
+        CheckButtonInteract();
     }
 
     private void checkCollectables()
@@ -117,6 +119,16 @@ public class Quest : MonoBehaviour {
         }
         if (currentWaypoint >= waypoints.Count)
             FinishQuest();
+    }
+
+    private void CheckButtonInteract() {
+        if (questType != QuestType.Interact)
+            return;
+        ButtonInteract button = interactable.GetComponent<ButtonInteract>();
+        if (button != null) {
+            if (button.IsActiveButton() == stateButton)
+                FinishQuest();
+        }
     }
 
     private void checkAllDone()
@@ -188,7 +200,6 @@ public class Quest : MonoBehaviour {
         } else if (questType == QuestType.Interact && interactable != null) {
             QuestMarker.transform.position = interactable.transform.position;
             refDistance.transform.position = interactable.transform.position;
-            interactable.AddOnInteractEvent(FinishQuest);
         }
 
         GameManger manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManger>();

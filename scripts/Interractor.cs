@@ -19,6 +19,7 @@ public class Interractor : MonoBehaviour
             if (manager != null)
                 manager.HideInteract();
             onInteract.Invoke();
+            isInteracting = false;
             OnInteract();
         }
     }

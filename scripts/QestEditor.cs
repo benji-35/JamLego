@@ -49,6 +49,7 @@ public class QestEditor : Editor
             
             #region InteractQuest
                 private SerializedProperty interactor;
+                private SerializedProperty interactableState;
             #endregion
         
         #endregion
@@ -81,6 +82,7 @@ public class QestEditor : Editor
         
         // interactQuest
         interactor = serializedObject.FindProperty("interactable");
+        interactableState = serializedObject.FindProperty("stateButton");
     }
 
     public override void OnInspectorGUI() {
@@ -263,6 +265,10 @@ public class QestEditor : Editor
         EditorGUILayout.Space(15);
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.PropertyField(interactor);
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("State of button needed: ", GUILayout.Width(200));
+        EditorGUILayout.PropertyField(interactableState);
         EditorGUILayout.EndHorizontal();
     }
 }
