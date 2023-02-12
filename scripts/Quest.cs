@@ -39,6 +39,9 @@ public class Quest : MonoBehaviour {
     
     [Header("Kill Quest")]
     [SerializeField] private PnjLife enemy;
+    
+    [Header("Interact Quest")]
+    [SerializeField] private Interractor interactable;
 
     private int nbCollected = 0;
 
@@ -182,6 +185,10 @@ public class Quest : MonoBehaviour {
             QuestMarker.transform.position = enemy.transform.position;
             refDistance.transform.position = enemy.transform.position;
             enemy.AddEventOnDeath(FinishQuest);
+        } else if (questType == QuestType.Interact && interactable != null) {
+            QuestMarker.transform.position = interactable.transform.position;
+            refDistance.transform.position = interactable.transform.position;
+            interactable.AddOnInteractEvent(FinishQuest);
         }
 
         GameManger manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManger>();
@@ -280,6 +287,7 @@ public enum QuestType {
     Talk,
     Destruct,
     Move,
+    Interact,
     Other
 }
 

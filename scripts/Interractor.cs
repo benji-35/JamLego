@@ -52,4 +52,8 @@ public class Interractor : MonoBehaviour
             return null;
         return manager.GetComponent<GameManger>();
     }
+    
+    public void AddOnInteractEvent(UnityAction action) {
+        onInteract.AddListener(action);
+    }
 }

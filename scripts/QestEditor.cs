@@ -46,6 +46,10 @@ public class QestEditor : Editor
                 private float minSizeDistance;
                 
             #endregion
+            
+            #region InteractQuest
+                private SerializedProperty interactor;
+            #endregion
         
         #endregion
 
@@ -74,10 +78,12 @@ public class QestEditor : Editor
         
         // collectVars
         enemy = serializedObject.FindProperty("enemy");
+        
+        // interactQuest
+        interactor = serializedObject.FindProperty("interactable");
     }
 
-    public override void OnInspectorGUI()
-    {
+    public override void OnInspectorGUI() {
         serializedObject.Update();
         Quest quest = (Quest)target;
         if (quest.GetQuestType() == QuestType.Collect || quest.GetQuestType() == QuestType.Move)
@@ -128,6 +134,9 @@ public class QestEditor : Editor
                     break;
                 case QuestType.Talk:
                     DisplayTalkEditor();
+                    break;
+                case QuestType.Interact:
+                    DisplayInteractable();
                     break;
                 default:
                     DisplayOtherEditor();
@@ -240,5 +249,20 @@ public class QestEditor : Editor
     
     private void DisplayOtherEditor() {
         
+    }
+
+    private void DisplayInteractable()
+    {
+        var style = new GUIStyle(GUI.skin.label)
+        {
+            alignment = TextAnchor.MiddleCenter,
+            fontStyle = FontStyle.Bold,
+            fontSize = 15,
+        };
+        EditorGUILayout.LabelField("Interact", style, GUILayout.ExpandWidth(true));
+        EditorGUILayout.Space(15);
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.PropertyField(interactor);
+        EditorGUILayout.EndHorizontal();
     }
 }
