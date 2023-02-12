@@ -21,6 +21,9 @@ public class GameManger : MonoBehaviour
     [SerializeField] private GameObject discussPanel;
     [SerializeField] private TMPro.TextMeshProUGUI discussTalker;
     [SerializeField] private TMPro.TextMeshProUGUI discussText;
+    [Header("Coin System")]
+    [SerializeField] private TMPro.TextMeshProUGUI coinText;
+    [SerializeField] private int coinAmount = 0;
     private bool gameIsReady = false;
     private int numberOfInteractables = 0;
     private int numberOfPauseMenu = 0;
