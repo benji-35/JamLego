@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
             Vector3 rotation = cameraHolder.rotation.eulerAngles;
             bulletSpawn.rotation = Quaternion.Euler(rotation);
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
+            bullet.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             rb.velocity = bulletSpawn.forward * bulletSpeed;
             Destroy(bullet, bulletLifeTime);

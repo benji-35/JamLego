@@ -58,6 +58,7 @@ public class GameManger : MonoBehaviour
         HidePauseMenu();
         CloseDiscuss();
         HideQuestInfo();
+        AddCoin(0);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -280,5 +281,11 @@ public class GameManger : MonoBehaviour
             questPanelInfo.SetActive(false);
             nbInfoQuests = 0;
         }
+    }
+    
+    public void AddCoin(int amount) {
+        coinAmount += amount;
+        if (coinText != null)
+            coinText.text = "Coins: " + coinAmount;
     }
 }
