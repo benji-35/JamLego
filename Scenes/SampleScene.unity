@@ -139,49 +139,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1013291853}
     - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: questName
-      value: Allez voir la personne
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: questType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: questDescription
-      value: "Une personne s'est fait d\xE9pouiller. Aidez la !"
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: waypoints.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: questObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
       propertyPath: questObjects.Array.data[0]._object
       value: 
       objectReference: {fileID: 705107297}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: questObjects.Array.data[0]._stateWanted
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: eventsOnFinish.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: eventsOnFinish.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: eventsOnFinish.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
       propertyPath: eventsOnFinish.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -190,38 +150,6 @@ PrefabInstance:
       propertyPath: eventsOnFinish.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1251537628}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: eventsOnFinish.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: eventsOnFinish.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: eventsOnFinish.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetActive
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: eventsOnFinish.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: StartQuest
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: eventsOnFinish.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: eventsOnFinish.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: Quest, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: eventsOnFinish.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5573706283703010196, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
-      propertyPath: eventsOnFinish.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 8589761609426071738, guid: 24ab7375c0a22b74d9be2cb7b867e89f, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2840,10 +2768,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1605292450764466761, guid: d6d44316c2920574fb2d28bfa9c3e0e5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00018310547
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605292450764466761, guid: d6d44316c2920574fb2d28bfa9c3e0e5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1605292451191299645, guid: d6d44316c2920574fb2d28bfa9c3e0e5, type: 3}
       propertyPath: quests.Array.data[0]
       value: 
       objectReference: {fileID: 169571743}
+    - target: {fileID: 1605292451191299645, guid: d6d44316c2920574fb2d28bfa9c3e0e5, type: 3}
+      propertyPath: onQuestFinished.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605292451191299645, guid: d6d44316c2920574fb2d28bfa9c3e0e5, type: 3}
+      propertyPath: onQuestFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605292451191299645, guid: d6d44316c2920574fb2d28bfa9c3e0e5, type: 3}
+      propertyPath: onQuestFinished.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1605292451617725224, guid: d6d44316c2920574fb2d28bfa9c3e0e5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.00018310547
+      objectReference: {fileID: 0}
     - target: {fileID: 1605292452142446242, guid: d6d44316c2920574fb2d28bfa9c3e0e5, type: 3}
       propertyPath: m_RootOrder
       value: 9

@@ -20,6 +20,10 @@ public class Quest : MonoBehaviour {
     private GameObject camPlayer;
     [SerializeField] private TMPro.TextMeshProUGUI distanceText;
     [SerializeField] private GameObject refDistance;
+    [SerializeField] private Vector3 minSize = new Vector3(0.089614f, 0.089614f, 0.089614f);
+    [SerializeField] private Vector3 maxSize = new Vector3(0.6f, 0.6f, 0.6f);
+    [SerializeField] private float maxSizeDistance = 500f;
+    [SerializeField] private float minSizeDistance = 50f;
 
     [Header("Move Quest")]
     [SerializeField] private List<QuestWaypoint> waypoints;
@@ -56,11 +60,30 @@ public class Quest : MonoBehaviour {
             return;
         if (camPlayer != null) {
             QuestMarker.transform.LookAt(2 * QuestMarker.transform.position - camPlayer.transform.position);
+            RectTransform rectTransform = QuestMarker.GetComponent<RectTransform>();
+            if (rectTransform != null) {
+                float dist = Vector3.Distance(player.transform.position, refDistance.transform.position);
+                if (dist <= maxSizeDistance && dist >= minSizeDistance) {
+                    float scale = minSize.x - (minSize.x - maxSize.x) * (dist - minSizeDistance) / (maxSizeDistance - minSizeDistance);
+                    rectTransform.localScale = new Vector3(scale, scale, scale);
+                } else if (dist < minSizeDistance){
+                    rectTransform.localScale = new Vector3(minSize.x, minSize.y, minSize.z);
+                } else {
+                    rectTransform.localScale = new Vector3(maxSize.x, maxSize.y, maxSize.z);
+                }
+            }
             if (refDistance == null) {
                 distanceText.text = "Distance: N/A";
             } else {
-                float distance = Vector3.Distance(camPlayer.transform.position, refDistance.transform.position);
-                distanceText.text = "Distance: " + distance.ToString("0.00") + "cm";
+                float distance = Vector3.Distance(player.transform.position, refDistance.transform.position);
+                if (distance > 50)
+                {
+                    distanceText.text = "Distance: " + distance.ToString("0.00") + "cm";
+                    distanceText.fontSize = 40f;
+                } else {
+                    distanceText.text = questName;
+                    distanceText.fontSize = 75f;
+                }
             }
         }
         checkWaypoint();
@@ -76,7 +99,7 @@ public class Quest : MonoBehaviour {
     }
     
     private void checkWaypoint() {
-        if (questType != QuestType.Move)
+        if (questType != QuestType.Move || waypoints.Count == 0)
             return;
         QuestWaypoint _waypoint = waypoints[currentWaypoint];
         Vector3 target = _waypoint.position.position;
@@ -84,8 +107,10 @@ public class Quest : MonoBehaviour {
         if (Vector3.Distance(target, player.transform.position) <= _waypoint.radius)
         {
             currentWaypoint++;
-            if (currentWaypoint < waypoints.Count)
+            if (currentWaypoint < waypoints.Count) {
                 QuestMarker.transform.position = waypoints[currentWaypoint].position.position;
+                refDistance.transform.position = waypoints[currentWaypoint].position.position;
+            }
         }
         if (currentWaypoint >= waypoints.Count)
             FinishQuest();
@@ -140,9 +165,11 @@ public class Quest : MonoBehaviour {
         QuestMarker.SetActive(true);
         if (questType == QuestType.Talk && talkTo != null) {
             QuestMarker.transform.position = talkTo.transform.position;
+            refDistance.transform.position = talkTo.transform.position;
             talkTo.AddEventOnFinish(FinishQuest, this);
         } else if (questType == QuestType.Move && waypoints.Count > 0) {
             QuestMarker.transform.position = waypoints[0].position.position;
+            refDistance.transform.position = waypoints[0].position.position;
             currentWaypoint = 0;
         } else if (questType == QuestType.Collect) {
             Debug.Log("collect quest : number of collectables = " + collectables.Count);
@@ -153,6 +180,7 @@ public class Quest : MonoBehaviour {
             }
         } else if (questType == QuestType.Kill && enemy != null) {
             QuestMarker.transform.position = enemy.transform.position;
+            refDistance.transform.position = enemy.transform.position;
             enemy.AddEventOnDeath(FinishQuest);
         }
 

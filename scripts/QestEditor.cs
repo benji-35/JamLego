@@ -36,6 +36,16 @@ public class QestEditor : Editor
                 private SerializedProperty enemy;
 
             #endregion
+            
+            #region DisplayingLogo
+
+                private float minSize;
+                private float maxSize;
+                
+                private float maxSizeDistance;
+                private float minSizeDistance;
+                
+            #endregion
         
         #endregion
 

@@ -528,6 +528,11 @@ MonoBehaviour:
   mouseSensitivity: 1
   upLimit: -50
   downLimit: 50
+  bulletPrefab: {fileID: 0}
+  bulletSpawn: {fileID: 0}
+  bulletSpeed: 10
+  bulletLifeTime: 2
+  fireRate: 0.5
 --- !u!1 &3427135120495007634
 GameObject:
   m_ObjectHideFlags: 0
