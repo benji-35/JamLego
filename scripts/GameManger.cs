@@ -229,6 +229,11 @@ public class GameManger : MonoBehaviour
             Application.Quit();
         #endif
     }
+
+    public bool CanQuestStart()
+    {
+        return nbInfoQuests <= 0;
+    }
     
     public void SetQuestInfo(string name, string description, QuestType questType)
     {

@@ -186,31 +186,10 @@ MonoBehaviour:
   questType: 2
   eventsOnFinish:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Quest, Assembly-CSharp
-        m_MethodName: StartQuest
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+  eventsOnStart:
+    m_PersistentCalls:
+      m_Calls: []
   QuestMarker: {fileID: 7797220660135663599}
   questObjects:
   - _object: {fileID: 0}
@@ -228,6 +207,8 @@ MonoBehaviour:
   talkTo: {fileID: 0}
   collectables: []
   enemy: {fileID: 0}
+  interactable: {fileID: 0}
+  stateButton: 1
 --- !u!1 &6851244059483399473
 GameObject:
   m_ObjectHideFlags: 0

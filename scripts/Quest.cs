@@ -12,6 +12,7 @@ public class Quest : MonoBehaviour {
     [SerializeField] private QuestType questType;
     [Header("Others")]
     [SerializeField] private UnityEvent eventsOnFinish;
+    [SerializeField] private UnityEvent eventsOnStart;
 
     [SerializeField] private GameObject QuestMarker;
     [SerializeField] private QuestObject[] questObjects;
@@ -175,6 +176,10 @@ public class Quest : MonoBehaviour {
     public void StartQuest() {
         if (state != QuestState.NotStarted)
             return;
+        GameManger manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManger>();
+        if (!manager.CanQuestStart()) {
+            return;
+        }
         gameObject.SetActive(true);
         state = QuestState.InProgress;
         QuestMarker.SetActive(true);
@@ -201,8 +206,7 @@ public class Quest : MonoBehaviour {
             QuestMarker.transform.position = interactable.transform.position;
             refDistance.transform.position = interactable.transform.position;
         }
-
-        GameManger manager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManger>();
+        eventsOnStart.Invoke();
         manager.SetQuestInfo(questName, questDescription, questType);
     }
     

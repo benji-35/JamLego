@@ -16,6 +16,7 @@ public class QestEditor : Editor
             private SerializedProperty questDescription;
             private SerializedProperty questType;
             private SerializedProperty onFinish;
+            private SerializedProperty onStart;
 
             #region moveVars
 
@@ -74,6 +75,7 @@ public class QestEditor : Editor
         questDescription = serializedObject.FindProperty("questDescription");
         questType = serializedObject.FindProperty("questType");
         onFinish = serializedObject.FindProperty("eventsOnFinish");
+        onStart = serializedObject.FindProperty("eventsOnStart");
         
         // moveVars
         waypoints = serializedObject.FindProperty("waypoints");
@@ -118,6 +120,9 @@ public class QestEditor : Editor
 
         events = EditorGUILayout.BeginFoldoutHeaderGroup(events, "Events");
         if (events) {
+            EditorGUILayout.HelpBox("Events are called when the quest is started or finished", MessageType.Info);
+            EditorGUILayout.PropertyField(onStart);
+            EditorGUILayout.HelpBox("Events are called when the quest is finished", MessageType.Info);
             EditorGUILayout.PropertyField(onFinish);
             serializedObject.ApplyModifiedProperties();
         }
